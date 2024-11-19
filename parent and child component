@@ -1,0 +1,41 @@
+//In ParentComponent.jsximport React,{Component} from "react";
+import ChildComponent from "./ChildComponent";
+class ParentComponent extends Component{
+    handleClick=()=>{
+        alert("Button Clicked in child!");
+    }
+    render(){
+        return(
+            <div>
+                <ChildComponent handleClick={this.handleClick}/>
+            </div>
+        );
+    }
+}
+export default ParentComponent;
+//In ChildComponent
+import React from "react";
+//import ParentComponent from "./ParentComponent";
+function ChildComponent(props){
+    return(
+        <div>
+        <button onClick={props.handleClick}>
+            Click Me!
+        </button>
+                </div>
+    );
+}
+export default ChildComponent;
+//In App.js
+import React from "react";
+import ParentComponent from "./component/ParentComponent";
+//import ChildComponent from "./component/ChildComponent";
+function App()
+{
+  return(
+    <div>
+    <ParentComponent/>
+    </div>
+      );
+}
+export default App;

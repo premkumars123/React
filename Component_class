@@ -1,0 +1,24 @@
+//In Sample.jsx
+import React, {Component} from 'react';
+class Sample extends Component{
+    constructor(){
+        super()
+        this.state={colour:"Blue Green"}
+    }
+    render(){
+        return<h1>Like {this.state.colour}colour</h1>;
+    }
+}
+export default Sample;
+//In App.js
+import React from "react";
+import Sample from "./component/Sample";
+function App(){
+  return(
+    <div>
+ <Sample/>
+    </div>
+    
+  )
+}
+export default App;

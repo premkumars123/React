@@ -1,0 +1,35 @@
+//In Muidemo.jsx
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SendIcon from '@mui/icons-material/Send';
+import Stack from '@mui/material/Stack';
+function Muidemo() {
+  return (
+    <Stack direction="row" spacing={2}>
+      <Button variant="outlined" startIcon={<DeleteIcon />}>
+        Delete
+      </Button>
+      <Button variant="contained" endIcon={<SendIcon />}>
+        Send
+      </Button>
+    </Stack>
+  );
+}
+
+export default Muidemo;
+//In App.js
+import React from "react";
+import Muidemo from "./component/Muidemo";
+//import ParentComponent from "./component/ParentComponent";
+//import ChildComponent from "./component/ChildComponent";
+
+function App()
+{
+  return(
+    <div>
+    <Muidemo/>
+    </div>
+      );
+}
+export default App;

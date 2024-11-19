@@ -1,0 +1,39 @@
+//In Greeting.jsx
+import React from "react";
+function Greeting(props){
+    return(
+        <div>
+           <h1> Hello {props.name}</h1>
+        </div>
+    )
+}
+export default Greeting;
+//In HelloWorld.jsx
+import React from "react";
+function HelloWorld(){
+    return(
+        <h1>Hello World!</h1>
+    )
+}
+export default HelloWorld;
+//In Welcome.jsx
+import React from 'react';
+function Welcome(){
+    return(
+        <>
+        <p>Welcome!</p>
+        </>
+    )
+}
+export default Welcome;
+//In App.js
+import React from "react";
+import Greeting from "./component/Greeting";
+function App(){
+  return(
+    <div>
+    <Greeting name="Sharini"/>
+    </div>
+  )
+}
+export default App;

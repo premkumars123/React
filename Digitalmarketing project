@@ -1,0 +1,345 @@
+//In LoginForm.jsx
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Box from '@mui/material/Box';
+
+const LoginForm = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    rememberMe: false,
+  });
+
+  const [errors, setErrors] = useState({
+    email: '',
+    password: '',
+  });
+
+  const navigate = useNavigate();
+
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = { email: '', password: '' };
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email || !emailRegex.test(formData.email)) {
+      newErrors.email = 'Valid email is required (e.g., username@gmail.com)';
+      valid = false;
+    }
+
+    // Validate password requirements
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    if (!formData.password || !passwordRegex.test(formData.password)) {
+      newErrors.password = 'Password must be at least 6 characters with at least one uppercase and one lowercase letter';
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      console.log('Login successful');
+      navigate('/home');
+    } else {
+      console.log('Login failed');
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: name === 'rememberMe' ? checked : value,
+    });
+  };
+
+  return (
+    <Box
+      sx={{
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundImage: 'url(https://5.imimg.com/data5/SELLER/Default/2022/5/HZ/WW/FK/110920980/hootsuite-1-500x500.jpg)', // Replace with your background image URL
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{
+          width: '100%',
+          maxWidth: '500px',
+          padding: '20px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+          backgroundColor: 'rgba(255, 255, 255, 0.9)', // Semi-transparent background
+        }}
+      >
+        <TextField
+          fullWidth
+          label="Email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          error={Boolean(errors.email)}
+          helperText={errors.email}
+          margin="normal"
+        />
+        <TextField
+          fullWidth
+          type="password"
+          label="Password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          error={Boolean(errors.password)}
+          helperText={errors.password}
+          margin="normal"
+          sx={{ mt: 2 }}
+        />
+        <FormControlLabel
+          control={<Checkbox checked={formData.rememberMe} onChange={handleChange} name="rememberMe" color="primary" />}
+          label="Remember Me"
+          sx={{ mt: 1, textAlign: 'left' }}
+        />
+        <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+          Login
+        </Button>
+        <Box sx={{ mt: 2, textAlign: 'center' }}>
+          <Link to="/signup" variant="body2">
+            Don't have an account? Sign Up
+          </Link>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
+export default LoginForm;
+//In SignUpPage.jsx
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom'; 
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+
+const SignUpPage = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+
+  const [errors, setErrors] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+
+  const navigate = useNavigate();
+
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = { username: '', email: '', password: '' };
+
+    if (!formData.username) {
+      newErrors.username = 'Username is required';
+      valid = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email || !emailRegex.test(formData.email)) {
+      newErrors.email = 'Valid email is required';
+      valid = false;
+    }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    if (!formData.password || !passwordRegex.test(formData.password)) {
+      newErrors.password = 'Password must be at least 6 characters with at least one uppercase and one lowercase letter';
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      console.log('Sign Up successful');
+      navigate('/home');
+    } else {
+      console.log('Sign Up failed');
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  return (
+    <Box    
+      sx={{
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundImage: 'url(https://logosmarken.com/wp-content/uploads/2021/03/Hootsuite-Emblem.png)', 
+        backgroundSize: '1600px 700px',
+        backgroundRepeat:'no-repeat',
+        backgroundPosition: 'center',
+      }}
+    >
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{
+          width: '100%',
+          maxWidth: '500px',
+          padding: '20px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+          backgroundColor: 'rgba(255, 255, 255, 0.9)', 
+        }}
+      >
+        <TextField
+          fullWidth
+          label="Username"
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
+          error={Boolean(errors.username)}
+          helperText={errors.username}
+          margin="normal"
+        />
+        <TextField
+          fullWidth
+          type="email"
+          label="Email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          error={Boolean(errors.email)}
+          helperText={errors.email}
+          margin="normal"
+          sx={{ mt: 2 }}
+        />
+        <TextField
+          fullWidth
+          type="password"
+          label="Password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          error={Boolean(errors.password)}
+          helperText={errors.password}
+          margin="normal"
+          sx={{ mt: 2 }}
+        />
+        <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+          Sign Up
+        </Button>
+        <Box sx={{ mt: 2, textAlign: 'center' }}>
+          <Link to="/" variant="body2">
+            Already have an account? Login
+          </Link>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
+export default SignUpPage;
+//In HomePage.jsx
+import React from 'react';
+import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
+const HomePage = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate('/');
+  };
+
+  return (
+    <Box
+      sx={{
+        height: '100vh',
+        backgroundImage: 'url(https://tse3.mm.bing.net/th?id=OIP.MXENq3EwCM5ym1_oKkd7QAHaEK&pid=Api&P=0&h=180.png)', // Replace with your background image URL
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Hootsuite
+          </Typography>
+          <Button color="inherit" onClick={handleLogout}>
+            Logout
+          </Button>
+        </Toolbar>
+      </AppBar>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: 'calc(100vh - 64px)', // Adjust height to account for AppBar
+          textAlign: 'center',
+          padding: '20px',
+          backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background for content
+          borderRadius: '8px',
+        }}
+      >
+        <Typography variant="h3" component="h1" gutterBottom>
+          Welcome to Hootsuite
+        </Typography>
+        <Typography variant="h5" component="p" gutterBottom>
+          Your ultimate digital marketing platform.
+        </Typography>
+        <Button variant="contained" color="primary" sx={{ mt: 3 }}>
+          Get Started
+        </Button>
+      </Box>
+    </Box>
+  );
+};
+
+export default HomePage;
+//In App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LoginForm from './Digital_Marketing/LoginForm';
+import HomePage from './Digital_Marketing/HomePage';
+import SignUpPage from './Digital_Marketing/SignUpPage';
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginForm />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;

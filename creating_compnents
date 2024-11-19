@@ -1,0 +1,21 @@
+//create a component folder in src folder and create a Welcome.jsx file in component folder
+//In Welcome.jsx
+import React from 'react';
+function Welcome(){
+    return(
+        <>
+        <p>HELLO WORLD</p>
+        </>
+    )
+}
+export default Welcome;
+//In App.js
+import React from "react";
+
+import Welcome from "./component/Welcome";
+function App(){
+  return(
+    <Welcome/>
+  )
+}
+export default App;
